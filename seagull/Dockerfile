@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 RUN apt-get update
 RUN apt-get -y install build-essential curl git libglib2.0-dev ksh bison flex vim tmux

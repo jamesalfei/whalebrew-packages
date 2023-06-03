@@ -4,7 +4,7 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
     - 'master'
-    - 're-builld-all'
+    - 're-build-all'
 
 jobs:
   all-image-build-success:
@@ -105,8 +105,8 @@ jobs:
       id: is-modified
       with:
         pattern: ${{ matrix.image }}/**
-    - uses: actions/checkout@v1
-      if: steps.is-modified.outputs.modified == 'true' || (github.event_name == 'push' && github.event.ref == 'refs/heads/re-builld-all')
+    - uses: actions/checkout@v3
+      if: steps.is-modified.outputs.modified == 'true' || (github.event_name == 'push' && github.event.ref == 'refs/heads/re-build-all')
     - run: |
         echo ::group::build image ${{ matrix.image }}:latest
           docker build -t ${{ matrix.image }} ${{ matrix.image }}
@@ -118,7 +118,7 @@ jobs:
             echo ::endgroup::
           done
         fi
-      if: steps.is-modified.outputs.modified == 'true' || (github.event_name == 'push' && github.event.ref == 'refs/heads/re-builld-all')
+      if: steps.is-modified.outputs.modified == 'true' || (github.event_name == 'push' && github.event.ref == 'refs/heads/re-build-all')
     - run: |
         echo ${{ secrets.DOCKER_HUB_PASSWORD }} | base64 -d | docker login --password-stdin -u whalebrewci
         echo ${{ github.token }} | docker login --password-stdin -u ${{ github.actor }} docker.pkg.github.com
@@ -132,5 +132,5 @@ jobs:
             docker push docker.pkg.github.com/${{ github.event.repository.owner.name}}/${{ github.event.repository.name }}/${{ matrix.image }}:${tag}
           done
         fi
-        
-      if: github.event_name == 'push' && ( steps.is-modified.outputs.modified == 'true' || github.event.ref == 'refs/heads/re-builld-all')
+
+      if: github.event_name == 'push' && ( steps.is-modified.outputs.modified == 'true' || github.event.ref == 'refs/heads/re-build-all')

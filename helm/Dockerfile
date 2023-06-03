@@ -1,6 +1,6 @@
 FROM alpine AS download
 RUN apk add --no-cache --update curl bash openssl
-ARG VERSION=3.1.1
+ARG VERSION=3.12.0
 RUN curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -- /dev/stdin ${VERSION+--version v${VERSION}}
 
 FROM alpine

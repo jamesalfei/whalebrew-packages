@@ -1,9 +1,9 @@
 FROM alpine:latest
 
-ARG VERSION=5.3.0
+ARG VERSION=8.0.0
 
-RUN apk --update upgrade && \
-    apk add \
+RUN apk --update upgrade
+RUN apk add \
         py3-pip \
         python3-dev \
         gcc \

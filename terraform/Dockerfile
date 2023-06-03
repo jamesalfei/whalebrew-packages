@@ -3,14 +3,14 @@ FROM hashicorp/terraform:latest
 ## Adding in case we need Terraform to call them.
 RUN apk --update upgrade && \
     apk add \
-        py-pip \ 
-        python-dev \ 
-        gcc \ 
-        musl-dev \ 
-        libffi-dev \ 
-        openssl-dev \ 
-        ca-certificates \ 
-        sudo \ 
+        py-pip \
+        python-dev \
+        gcc \
+        musl-dev \
+        libffi-dev \
+        openssl-dev \
+        ca-certificates \
+        sudo \
         openssl
 
 RUN pip install \
